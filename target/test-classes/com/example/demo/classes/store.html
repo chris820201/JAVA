@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>店家管理系統</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<style type="text/css">
+     body{
+      background-image:url("./images/bg-3.jpg");
+
+    }
+    </style>
+</head>
+
+<body>
+
+    <div class="container my-2 ">
+        <h1>店家管理</h1>
+
+        <a th:href="@{/showStore}" class="btn btn-primary btn-sm mb-3"> 店家新增 </a>
+
+        <table border="1" class="table table-striped table-responsive-md">
+            <thead>
+                <tr>
+                    <th>店名</th>
+                    <th>電話</th>
+                    <th>店址</th>
+                    <th>狀態</th>
+                    <th>選項</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="store : ${emps}">
+                    <td th:text="${store.sname}"></td>
+                    <td th:text="${store.sphone}"></td>
+                    <td th:text="${store.saddress}"></td>
+                    <td th:text="${store.status}"></td>
+
+                    <td> <a th:href="@{/showStoreUpdate/{id}(id=${store.sid})}" class="btn btn-primary">Update</a>
+                        <a th:href="@{/deleteStore/{id}(id=${store.sid})}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+        <ul class="pagination">
+            <li th:unless="${currentPage == 0}">
+                <a th:href="@{/store(page=0)}" class="btn btn-primary btn-sm ml-3">| First |</a>
+            </li>
+            <li th:unless="${currentPage == 0}">
+                <a th:href="@{/store(page=${currentPage - 1})}" class="btn btn-primary btn-sm ml-3">| Previous |</a>
+            </li>
+            <li th:unless="${currentPage == totalPages - 1}">
+                <a th:href="@{/store(page=${currentPage + 1})}" class="btn btn-primary btn-sm ml-3">| Next |</a>
+            </li>
+            <li th:unless="${currentPage == totalPages - 1}">
+                <a th:href="@{/store(page=${totalPages - 1})}" class="btn btn-primary btn-sm ml-3 ">| Last |</a>
+            </li>
+        </ul>
+    </nav>
+    <a class="btn btn-primary btn-sm" th:href="@{/orderbs}">回管理首頁</a>
+    </div>
+
+</body>
+
+</html>
