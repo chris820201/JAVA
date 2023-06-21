@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Product Management System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h1><b><font color="#0000A8">產品新增</font></b></h1>
+        <hr>
+
+        <form action="#" th:action="@{/saveProduct}" th:object="${product}" method="POST">
+            
+            <input type="text" th:field="*{pName}" placeholder="產品名稱" class="form-control mb-4 col-4">
+
+            <input type="text" th:field="*{price}" placeholder="價格" class="form-control mb-4 col-4">
+            
+            <input type="text" th:field="*{status}" placeholder="狀態:1=正常、2=停售" class="form-control mb-4 col-4">
+            
+            <input type="text" th:field="*{descc}" placeholder="產品說明" class="form-control mb-4 col-4">
+            
+            <input type="text" th:field="*{remark}" placeholder="備註" class="form-control mb-4 col-4">
+            
+            <input type="text" th:field="*{sortId}" placeholder="分類ID" class="form-control mb-4 col-4">
+
+            <button type="submit" class="btn btn-info col-2"> 儲存</button>
+            
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+         	   <a class="dropdown-item" href="#">1</a>
+         	   <a class="dropdown-item" href="#">2</a>
+		    </div>
+        </form>
+
+        <hr>
+
+        <a th:href="@{/wdproduct}"> 返回產品清單</a>
+    </div>
+</body>
+
+</html>

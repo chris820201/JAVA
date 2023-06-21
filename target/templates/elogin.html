@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Login</title>
+    <style type="text/css">
+    .container{
+      display:flex;
+      justify-content:center;
+      padding:370px;
+      height:100vh;
+      flex-wrap:wrap;
+    }
+    a:hover
+    {
+    color:red;
+    }
+    body{
+      background-image:url("./images/login-bg1.jpg");
+      background-size:100%;
+      repeat:norepeat;
+    }
+    </style>
+</head>
+<body>
+   <div class="container ">
+   <div class="row">
+     <div class="col">
+         <h1>I had Brain</h1>
+         <h2>後台管理</h2>
+     </div>
+     <div class="col">
+    <form action="#" th:action="@{/elogin1}" th:object="${employee}" method="post"class="center">
+         
+        <p>員工請登入</p>
+        <p>
+            <label for="account">Username:</label>
+            <input type="text" id="account" name="account" th:field="*{account}">
+        </p>
+        <p>
+            <label for="password">Password :</label>
+            <input type="password" id="password" name="password" th:field="*{password}">
+        </p>
+        <p>
+            <input type="submit" value="會員登入">
+        </p>
+        <div th:if="${error}" style="color: red;">Invalid adccount or password.</div>
+    </form>
+    </div>
+    </div>
+   </div>
+</body>
+</html>
