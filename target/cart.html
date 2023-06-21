@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+	<!-- 導覽列 -->
+	<ul class="nav nav-pills nav-fill">
+	  <li class="nav-item">
+	    <a class="nav-link" th:href="@{/product}">訂餐</a>
+	  </li>	  
+	  <li class="nav-item">
+	    <a class="nav-link" th:href="@{/order}">訂單管理</a>
+	  </li>
+	  
+	  <li class="nav-item">
+	    <a class="nav-link active" aria-current="page" th:href="@{/cart}">購物車</a>
+	  </li>
+	</ul>
+	<!-- 導覽列 -->
+	
+    <table border="1" class="table table-striped table-responsive-md">
+            <thead>
+                <tr>
+                	<th>fID</th>
+                	<th>產品ID</th>
+                    <th>產品</th>
+                    <th>價格</th>               
+                    <th>按鈕</th>
+                </tr>
+            </thead>
+            <tbody>
+            	
+                <tr th:each="p , status : ${products}">
+                	<td th:text="${p.fId}"></td>
+                	<td th:text="${p.pId}"></td>
+                    <td th:text="${p.pName}"></td>
+                    <td th:text="${p.price}"></td>	                   
+                    <td>                     
+                    	<a th:href="@{/remove/{id}(id=${p.fId})}" class="btn btn-danger">取消</a>
+                    </td>
+                </tr>
+                <tr>
+                	<td colspan=5>
+                		總計:<a id="total" th:text="${total}"></a>
+                	</td>
+                </tr>
+                
+            </tbody>
+       </table>
+       	<button onClick="suborder()" class="btn btn-primary">送出訂單</button>
+  		
+
+       
+</body>
+<script>
+  function suborder() {
+    var person = {};
+    var time = new Date();
+    var year = time.getFullYear().toString(); //獲取當前年
+    var mon = (time.getMonth() + 1).toString(); //獲取當前月
+    var date = time.getDate().toString(); //獲取當前日
+    var h = time.getHours().toString();//獲取當前小時數(0-23)
+    var m = time.getMinutes().toString();//獲取當前分鐘數(0-59)
+    var s = time.getSeconds().toString();//獲取當前秒
+
+    
+    person.orderNumber = "on"+year+mon+date+h+m+s;
+    person.customerId =1;
+    person.storeId=1;
+    person.orderTime=year+mon+date+h+m+s;
+    person.sumTotal=$("#total").text();
+    person.orderStatus=1;
+    $.ajax({
+      url: "/saveOrder",
+      type: "GET",
+      data: person,
+      
+      success: function() {
+    	  alert("送出成功");
+      }
+    });
+    
+  }
+  
+</script>
+</html>
